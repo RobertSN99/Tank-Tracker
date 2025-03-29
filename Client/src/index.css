@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, system-ui, "Segoe UI", Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+:root {
+  --background-color: #f6f6f6;
+  --foreground-color: #003cff;
+  --primary-text-color: #0a0a0a;
+  --secondary-text-color: #ffffff;
+  --toggle-bg: #f0eb9d;
+  --toggle-fg: #ffd000;
+}
+
+[data-theme="dark"] {
+  --background-color: #0a0a0a;
+  --foreground-color: #567aff;
+  --primary-text-color: #f6f6f6;
+  --secondary-text-color: #0a0a0a;
+  --theme-toggle-bg: #283452;
+  --theme-toggle-fg: #00a6ff;
+}
+
+[data-theme="light"] {
+  --background-color: #f6f6f6;
+  --foreground-color: #003cff;
+  --primary-text-color: #0a0a0a;
+  --secondary-text-color: #ffffff;
+  --theme-toggle-bg: #726b10;
+  --theme-toggle-fg: #ffd000;
+}
