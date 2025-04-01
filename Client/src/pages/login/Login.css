@@ -1,10 +1,10 @@
 /* General Container Styling */
-.container {
+.login-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 50%;
+  height: 30rem;
   width: 80%; /* Adjust width for responsiveness */
   max-width: 400px; /* Limit the max width */
   border-radius: 2rem;
@@ -15,7 +15,7 @@
 }
 
 /* Dark Theme */
-[data-theme="dark"] .container {
+[data-theme="dark"] .login-container {
   background: linear-gradient(
     90deg,
     rgba(22, 21, 37, 1) 0%,
@@ -26,7 +26,7 @@
 }
 
 /* Light Theme */
-[data-theme="light"] .container {
+[data-theme="light"] .login-container {
   background: linear-gradient(
     90deg,
     rgba(223, 223, 223, 1) 0%,
@@ -36,11 +36,10 @@
   color: #000;
 }
 
-h1 {
+.login-container-title {
   position: absolute;
-  top: 1rem;
+  top: 2rem;
   font-size: 2rem;
-  margin: 1rem 0;
   text-transform: uppercase;
   text-align: center;
 }
@@ -54,7 +53,7 @@ h1 {
   width: 100%;
 }
 
-.form-group {
+.login-form-group {
   width: 100%;
 }
 
@@ -90,7 +89,7 @@ input:focus {
 }
 
 /* Button Styling */
-button {
+#login-submit-btn {
   position: absolute;
   bottom: 1rem;
   left: 50%;
@@ -108,17 +107,17 @@ button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-button:hover {
+#login-submit-btn:hover {
   background-color: rgb(9, 115, 204); /* Slightly darker blue on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-button:focus {
+#login-submit-btn:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(10, 132, 255, 0.7);
 }
 
-button:active {
+#login-submit-btn:active {
   background-color: rgb(8, 98, 179); /* Even darker blue when pressed */
 }
 
@@ -144,16 +143,17 @@ a:hover {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .container {
+  .login-container {
     width: 80%;
     padding: 1.5rem;
   }
 
-  h1 {
+  #login-container-title {
     font-size: 1.8rem;
   }
 
-  button {
+  #login-submit-btn {
+    width: 80%;
     padding: 0.7rem 1.5rem;
     font-size: 0.9rem;
   }
@@ -166,25 +166,20 @@ a:hover {
     width: 100%;
     gap: 1rem;
   }
-
-  .forgot-password-group {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
 
 @media (max-width: 480px) {
-  .container {
+  .login-container {
     width: 90%;
     padding: 1rem;
   }
 
-  h1 {
+  #login-container-title {
     font-size: 1.5rem;
   }
 
-  button {
-    width: 100%;
+  #login-submit-btn {
+    width: 80%;
     padding: 0.8rem;
     font-size: 1rem;
   }

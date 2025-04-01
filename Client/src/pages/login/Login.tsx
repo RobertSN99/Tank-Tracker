@@ -8,11 +8,12 @@ function Login() {
     console.log({ email, password });
   };
   return (
-    <div className="container">
-      <h1>Sign In</h1>
+    <div className="login-container">
+      <h1 className="login-container-title">Sign In</h1>
       <form className="login-form" onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="login-form-group">
           <input
+            className="login-input"
             type="email"
             id="email"
             name="email"
@@ -21,8 +22,10 @@ function Login() {
             autoFocus={true}
           />
         </div>
-        <div className="form-group">
+        <div className="separator" />
+        <div className="login-form-group">
           <input
+            className="login-input"
             type="password"
             id="password"
             name="password"
@@ -30,15 +33,17 @@ function Login() {
             required
           />
         </div>
-        <div className="form-group forgot-password-group">
-          <a href="#" className="forgot-password">
+        <div className="login-form-group forgot-password-group">
+          <a href="#" id="forgot-password-link">
             I forgot my password
           </a>
-          <a href="#" className="not-a-member">
+          <a href="/register" id="register-link">
             Sign up
           </a>
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" id="login-submit-btn">
+          Login
+        </button>
       </form>
     </div>
   );

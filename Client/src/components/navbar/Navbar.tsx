@@ -9,6 +9,8 @@ interface NavbarProps {
 function Navbar({ isDark, setIsDark }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const userIsLoggedIn: boolean = true;
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
     setIsDark(isChecked);
@@ -33,16 +35,34 @@ function Navbar({ isDark, setIsDark }: NavbarProps) {
             Home
           </a>
         </li>
-        <li className="navbar-item">
-          <a href="/login" className="navbar-link">
-            Login
-          </a>
-        </li>
-        <li className="navbar-item">
-          <a href="/register" className="navbar-link">
-            Register
-          </a>
-        </li>
+        {userIsLoggedIn ? (
+          <>
+            <li className="navbar-item">
+              <a href="/admin" className="navbar-link">
+                Admin
+              </a>
+            </li>
+            <li className="navbar-item">
+              <a href="/logout" className="navbar-link">
+                Logout
+              </a>
+            </li>
+          </>
+        ) : (
+          <>
+            <li className="navbar-item">
+              <a href="/login" className="navbar-link">
+                Login
+              </a>
+            </li>
+            <li className="navbar-item">
+              <a href="/register" className="navbar-link">
+                Register
+              </a>
+            </li>
+          </>
+        )}
+
         <li className="navbar-item navbar-theme-toggle">
           <label htmlFor="theme-check" className="theme-label">
             <input

@@ -1,0 +1,95 @@
+.tanks-container-title {
+  font-family: "Lexend Exa";
+  font-weight: 500;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.tanks-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.tank-card {
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
+  display: grid;
+  grid-template-areas:
+    "name name name"
+    "tier class class"
+    "nation status status";
+  padding: 1rem;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-family: "Lexend Exa";
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(204, 204, 204, 0.5);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.tank-card:hover {
+  background: rgb(255, 187, 0);
+  color: black;
+}
+
+.tank-card > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.tank-card-name {
+  grid-area: name;
+  font-size: 1.2rem;
+}
+
+.tank-card-nation {
+  grid-area: nation;
+}
+
+.tank-card-tier {
+  grid-area: tier;
+}
+
+.tank-card-class {
+  grid-area: class;
+}
+
+.tank-card-status {
+  grid-area: status;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pagination-btn {
+  padding: 0.5rem 1rem;
+  background-color: rgb(255, 187, 0);
+  color: black;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: "Lexend Exa";
+  font-weight: bold;
+}
+
+.pagination-btn:disabled {
+  background-color: rgba(133, 133, 133, 0.5);
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  font-family: "Lexend Exa";
+  font-weight: bold;
+}

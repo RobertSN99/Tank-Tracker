@@ -1,0 +1,36 @@
+.notfound-container {
+  width: 50%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  flex-direction: column;
+  gap: 5rem;
+  position: relative;
+  text-align: center;
+}
+
+.notfound-title {
+  font-size: 4rem;
+}
+
+.notfound-message {
+  font-size: 2rem;
+  text-wrap: stable;
+}
+
+.notfound-btn {
+  position: absolute;
+  bottom: -5rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .notfound-title {
+    font-size: 2rem;
+  }
+
+  .notfound-message {
+    font-size: 1rem;
+  }
+}

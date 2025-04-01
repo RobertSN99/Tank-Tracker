@@ -1,0 +1,131 @@
+footer {
+  display: grid;
+  grid-template-columns: 1.5fr 3fr;
+  grid-template-rows: 3fr 1fr;
+  grid-template-areas:
+    "left right"
+    "bottom bottom";
+  justify-items: center;
+  align-items: center;
+  background: var(--background-color);
+  color: var(--primary-text-color);
+  min-height: 300px;
+  cursor: default;
+  border-top: 1px solid rgba(59, 59, 59, 0.2);
+}
+
+footer > .left-section {
+  grid-area: left;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 2.5rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(59, 59, 59, 0.2);
+  height: 100%;
+  width: 100%;
+}
+
+.left-section > h3 {
+  font-family: "Lexend Exa";
+  color: var(--foreground-color);
+  font-size: 2rem;
+}
+
+.left-section > p {
+  max-width: 300px;
+  opacity: 0.5;
+}
+
+footer > .right-section {
+  grid-area: right;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid rgba(59, 59, 59, 0.2);
+}
+
+.right-section > ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid rgba(59, 59, 59, 0.2);
+}
+
+.right-section a {
+  color: var(--primary-text-color);
+  font-size: 1rem;
+}
+
+.right-section > ul > li {
+  transition: all 0.2s ease;
+}
+
+.right-section > ul > li:hover {
+  transform: translateY(-0.1rem);
+}
+
+.right-section > ul > .ul-title {
+  opacity: 0.5;
+}
+
+.right-section > ul > li {
+  cursor: pointer;
+}
+
+.footer-contact > li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-contact > li:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.footer-contact > li svg {
+  font-size: 1.2rem;
+  display: flex;
+}
+
+.footer-contact > li a {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.right-section footer > .bottom-section {
+  grid-area: bottom;
+}
+
+.bottom-section {
+  grid-area: bottom;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  footer {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+      "left"
+      "right"
+      "bottom";
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+}
