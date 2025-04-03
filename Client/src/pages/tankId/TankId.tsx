@@ -48,6 +48,12 @@ function TankId() {
   const [editingField, setEditingField] = useState<keyof Tank | null>(null);
   const [editedTank, setEditedTank] = useState<Tank | null>(null);
 
+  // Placeholder options
+  const tiers = ["Tier 1", "Tier 2", "Tier 3", "Tier 4"];
+  const classes = ["Light Tank", "Medium Tank", "Heavy Tank", "Tank Destroyer"];
+  const nations = ["Czech", "Germany", "France", "USA", "UK"];
+  const statuses = ["Tech Tree", "Premium", "Special", "Event"];
+
   useEffect(() => {
     // Simulate fetching tank data from an API by finding it in mockTanks
     const foundTank = mockTanks.find((t) => t.id === id);
@@ -58,7 +64,7 @@ function TankId() {
   }, [id]);
 
   const handleEditChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     field: keyof Tank
   ) => {
     if (editedTank) {
@@ -86,14 +92,41 @@ function TankId() {
           <p key={field}>
             <strong>{field.charAt(0).toUpperCase() + field.slice(1)}:</strong>{" "}
             {editingField === field ? (
-              <input
-                type="text"
-                value={editedTank?.[field as keyof Tank]}
-                onChange={(e) => handleEditChange(e, field as keyof Tank)}
-                onBlur={handleSave}
-                onKeyDown={handleKeyDown}
-                autoFocus
-              />
+              field === "tier" ||
+              field === "class" ||
+              field === "nation" ||
+              field === "status" ? (
+                <select
+                  value={editedTank?.[field as keyof Tank]}
+                  onChange={(e) => handleEditChange(e, field as keyof Tank)}
+                  onBlur={handleSave}
+                  autoFocus
+                  className="editable-select"
+                >
+                  {(field === "tier"
+                    ? tiers
+                    : field === "class"
+                    ? classes
+                    : field === "nation"
+                    ? nations
+                    : statuses
+                  ).map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  type="text"
+                  value={editedTank?.[field as keyof Tank]}
+                  onChange={(e) => handleEditChange(e, field as keyof Tank)}
+                  onBlur={handleSave}
+                  onKeyDown={handleKeyDown}
+                  autoFocus
+                  className="editable-input"
+                />
+              )
             ) : (
               <>
                 {tank[field as keyof Tank]}{" "}

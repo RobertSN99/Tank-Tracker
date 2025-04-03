@@ -13,7 +13,9 @@
   padding: 3rem 0;
   text-align: center;
   width: 25rem;
+  max-width: 25rem;
   height: 15rem;
+  max-height: 15rem;
   border: 1px solid rgba(204, 204, 204, 0.5);
   border-radius: 1rem;
   cursor: pointer;
@@ -32,4 +34,37 @@
 .admin-link:hover {
   background: rgb(255, 187, 0);
   color: black;
+}
+
+@media (max-width: 1319px) {
+  .admin-links-group {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-link {
+    width: 20rem;
+    height: 10rem;
+  }
+}
+
+@media (max-width: 884px) {
+  .admin-links-group {
+    margin-top: 1rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 340px) {
+  .admin-link {
+    width: 15rem;
+    height: 5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .admin-link .admin-link-title {
+    font-size: 1rem;
+  }
 }

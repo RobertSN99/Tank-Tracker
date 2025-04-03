@@ -130,6 +130,10 @@
   .filter-reset-btn {
     font-size: 0.65rem;
   }
+
+  .tanks-container {
+    padding-bottom: 5rem;
+  }
 }
 
 @media (max-width: 680px) {

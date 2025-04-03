@@ -5,8 +5,8 @@
   justify-content: center;
   align-items: center;
   height: 30rem;
-  width: 80%; /* Adjust width for responsiveness */
-  max-width: 400px; /* Limit the max width */
+  width: 80%;
+  max-width: 400px;
   border-radius: 2rem;
   border: 1px solid rgb(59, 59, 59);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -84,7 +84,7 @@ input {
 
 input:focus {
   outline: none;
-  border-color: rgb(10, 132, 255); /* Highlight color on focus */
+  border-color: rgb(10, 132, 255);
   box-shadow: 0 0 5px rgba(10, 132, 255, 0.7);
 }
 
@@ -108,7 +108,7 @@ input:focus {
 }
 
 #login-submit-btn:hover {
-  background-color: rgb(9, 115, 204); /* Slightly darker blue on hover */
+  background-color: rgb(9, 115, 204);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -118,7 +118,7 @@ input:focus {
 }
 
 #login-submit-btn:active {
-  background-color: rgb(8, 98, 179); /* Even darker blue when pressed */
+  background-color: rgb(8, 98, 179);
 }
 
 /* Link Styling */

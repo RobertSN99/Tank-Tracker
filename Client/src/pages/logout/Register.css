@@ -90,7 +90,7 @@ input {
 
 input:focus {
   outline: none;
-  border-color: rgb(10, 132, 255); /* Highlight color on focus */
+  border-color: rgb(10, 132, 255);
   box-shadow: 0 0 5px rgba(10, 132, 255, 0.7);
 }
 
@@ -122,19 +122,19 @@ input:focus {
 }
 
 #register-submit-btn:disabled {
-  background-color: rgb(200, 200, 200); /* Greyed out color when disabled */
+  background-color: rgb(200, 200, 200);
   cursor: not-allowed;
   box-shadow: none;
-  color: rgb(150, 150, 150); /* Greyed out text color */
+  color: rgb(150, 150, 150);
 }
 
 #register-submit-btn:disabled:hover {
-  background-color: rgb(200, 200, 200); /* No hover effect when disabled */
+  background-color: rgb(200, 200, 200);
   box-shadow: none;
 }
 
 #register-submit-btn:hover {
-  background-color: rgb(9, 115, 204); /* Slightly darker blue on hover */
+  background-color: rgb(9, 115, 204);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -144,7 +144,7 @@ input:focus {
 }
 
 #register-submit-btn:active {
-  background-color: rgb(8, 98, 179); /* Even darker blue when pressed */
+  background-color: rgb(8, 98, 179);
 }
 
 /* Link Styling */
