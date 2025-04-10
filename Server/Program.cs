@@ -8,10 +8,7 @@ using Server.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -27,7 +24,6 @@ builder.Services.AddIdentityCore<User>(options =>
 
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     options.Lockout.MaxFailedAccessAttempts = 5;
-
     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = true;
 })
@@ -40,8 +36,22 @@ builder.Services.AddAuthentication("Identity.Application")
     {
         options.LoginPath = "/auth/login";
         options.LogoutPath = "/auth/logout";
-        options.AccessDeniedPath = "/auth/denied";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.AccessDeniedPath = "/auth/access-denied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(builder.Configuration.GetValue<int>("SessionOptions:SessionDurationMinutes"));
+        options.SlidingExpiration = false;
+        options.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToAccessDenied = context =>
+            {
+                context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                return Task.CompletedTask;
+            },
+            OnRedirectToLogin = context =>
+            {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                return Task.CompletedTask;
+            }
+        };
     });
 
 builder.Services.AddAuthorization(options =>
@@ -52,23 +62,24 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("User", policy => policy.RequireRole("User"));
 });
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<ISessionService, SessionService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
-
+app.UseMiddleware<SessionValidationMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();

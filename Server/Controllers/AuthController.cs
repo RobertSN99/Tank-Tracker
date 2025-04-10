@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models.DTOs;
 using Server.Services.Interfaces;
@@ -22,11 +21,9 @@ namespace Server.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
         {
             var result = await _authService.RegisterAsync(registerDTO);
-            if (result.Succeeded)
-            {
-                return Ok(result);
-            }
-            return BadRequest(new { Message = "Registration failed", result.Errors });
+            return result.Success
+                ? Ok(result.Data)
+                : BadRequest(new { result.Message, result.Errors });
         }
 
         [HttpPost("login")]
@@ -34,18 +31,25 @@ namespace Server.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
         {
             var result = await _authService.LoginAsync(loginDTO);
-            if (result.Succeeded)
-            {
-                return Ok(result);
-            }
-            return Unauthorized(new { Message = "Invalid credentials" });
+            return result.Success
+                ? Ok(result.Data)
+                : Unauthorized(new { result.Message, result.Errors });
         }
 
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
-            await _authService.LogoutAsync();
-            return Ok(new { Message = "Logged out successfully" });
+            var result = await _authService.LogoutAsync();
+            return result.Success
+                ? Ok(new { result.Message })
+                : BadRequest(new { result.Message, result.Errors });
+        }
+
+        [HttpGet("access-denied")]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return Unauthorized(new { Message = "Access denied" });
         }
     }
 }

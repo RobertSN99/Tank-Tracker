@@ -14,6 +14,7 @@ namespace Server.Data
         public DbSet<Nation> Nations { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<TankClass> TankClasses { get; set; }
+        public DbSet<UserSession> UserSessions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -47,6 +48,11 @@ namespace Server.Data
                 .HasOne(t => t.UpdatedBy)
                 .WithMany()
                 .HasForeignKey(t => t.UpdatedById)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<UserSession>()
+                .HasOne(t => t.User)
+                .WithMany()
+                .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
