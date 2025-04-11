@@ -1,6 +1,6 @@
 # Tank Tracker
 
-**Tank Tracker** is a web application designed to manage a collection of tanks. Built with **ASP.NET Core**, **React (Vite)**, and **SQL Server**, it allows users to explore, add, edit, and rate tanks. The project is currently under development.
+**Tank Tracker** is a web application designed to manage a collection of tanks from World of Tanks game. Built with **ASP.NET Core**, **React (Vite)**, and **SQL Server**, it allows users to explore, add, edit, and rate tanks. The project is currently under development.
 
 ## Features
 
