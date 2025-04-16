@@ -34,7 +34,7 @@ This project is a **work in progress**:
 - [x] Authentication system (register, login, logout)
 - [x] Role-based access control
 - [x] Session tracking
-- [ ] Tank endpoints
+- [x] Tank endpoints
 - [ ] Frontend integration for tanks
 - [ ] Rating functionality
 
@@ -44,7 +44,7 @@ This project is a **work in progress**:
 
 ## Roadmap
 
-- [ ] Implement tank CRUD endpoints in the backend
+- [x] Implement tank CRUD endpoints in the backend
 - [ ] Integrate frontend with tank endpoints
 - [ ] Develop rating functionality for tanks
 - [ ] Enhance UI/UX for better user experience
