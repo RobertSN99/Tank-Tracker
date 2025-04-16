@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Server.Helper;
 using Server.Helpers;
 using Server.Services.Interfaces;
 
@@ -16,7 +15,7 @@ public class RoleService : IRoleService
     public async Task<ServiceResult<object>> CreateRoleAsync(string roleName)
     {
         // Validate role by name
-        var validationResult = await IdentityValidator.ValidateRoleByNameAsync(roleName, _roleManager);
+        var validationResult = await MyValidator.ValidateRoleByNameAsync(roleName, _roleManager);
         if (validationResult != null) return validationResult;
 
         // Create the new role
@@ -31,7 +30,7 @@ public class RoleService : IRoleService
     public async Task<ServiceResult<object>> DeleteRoleAsync(string roleId)
     {
         // Validate role by ID
-        var validationResult = await IdentityValidator.ValidateRoleByIdAsync(roleId, _roleManager);
+        var validationResult = await MyValidator.ValidateRoleByIdAsync(roleId, _roleManager);
         if (validationResult != null) return validationResult;
 
         var role = await _roleManager.FindByIdAsync(roleId);
@@ -45,7 +44,7 @@ public class RoleService : IRoleService
     public async Task<ServiceResult<object>> GetRoleByIdAsync(string roleId)
     {
         // Validate role by ID
-        var validationResult = await IdentityValidator.ValidateRoleByIdAsync(roleId, _roleManager);
+        var validationResult = await MyValidator.ValidateRoleByIdAsync(roleId, _roleManager);
         if (validationResult != null) return validationResult;
 
         var role = await _roleManager.FindByIdAsync(roleId);
@@ -56,7 +55,7 @@ public class RoleService : IRoleService
     public async Task<ServiceResult<object>> GetRoleByNameAsync(string roleName)
     {
         // Validate role by name
-        var validationResult = await IdentityValidator.ValidateRoleByNameAsync(roleName, _roleManager);
+        var validationResult = await MyValidator.ValidateRoleByNameAsync(roleName, _roleManager);
         if (validationResult != null) return validationResult;
 
         var role = await _roleManager.FindByNameAsync(roleName);
@@ -80,11 +79,11 @@ public class RoleService : IRoleService
     public async Task<ServiceResult<object>> UpdateRoleAsync(string roleId, string roleName)
     {
         // Validate role by ID (reuse helper method)
-        var idValidationResult = await IdentityValidator.ValidateRoleByIdAsync(roleId, _roleManager);
+        var idValidationResult = await MyValidator.ValidateRoleByIdAsync(roleId, _roleManager);
         if (idValidationResult != null) return idValidationResult;
 
         // Validate role by name (reuse helper method)
-        var nameValidationResult = await IdentityValidator.ValidateRoleByNameAsync(roleName, _roleManager);
+        var nameValidationResult = await MyValidator.ValidateRoleByNameAsync(roleName, _roleManager);
         if (nameValidationResult != null) return nameValidationResult;
 
         var role = await _roleManager.FindByIdAsync(roleId);

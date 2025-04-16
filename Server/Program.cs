@@ -68,6 +68,10 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IStatusService, StatusService>();
+builder.Services.AddScoped<INationService, NationService>();
+builder.Services.AddScoped<ITankClassService, TankClassService>();
+builder.Services.AddScoped<ITankService, TankService>();
 
 var app = builder.Build();
 

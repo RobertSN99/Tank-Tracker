@@ -38,17 +38,6 @@ namespace Server.Data
                 .HasForeignKey(t => t.StatusId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Tank>()
-                .HasOne(t => t.CreatedBy)
-                .WithMany()
-                .HasForeignKey(t => t.CreatedById)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Tank>()
-                .HasOne(t => t.UpdatedBy)
-                .WithMany()
-                .HasForeignKey(t => t.UpdatedById)
-                .OnDelete(DeleteBehavior.Restrict);
             builder.Entity<UserSession>()
                 .HasOne(t => t.User)
                 .WithMany()

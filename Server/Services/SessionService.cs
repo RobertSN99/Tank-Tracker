@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Data;
-using Server.Helper;
 using Server.Helpers;
 using Server.Models.DTOs;
 using Server.Models.Entities;
@@ -28,7 +27,7 @@ namespace Server.Services
         public async Task<ServiceResult<UserSessionDTO>> GetSessionByIdAsync(string id)
         {
             // Validate the ID
-            var idCheck = Guard.AgainstNullOrEmpty(id, nameof(id));
+            var idCheck = MyValidator.AgainstNullOrEmpty(id, nameof(id));
             if (!idCheck.Succeeded)
                 return ServiceResult<UserSessionDTO>.FailureResult(idCheck.Errors.First().Description);
 
@@ -46,7 +45,7 @@ namespace Server.Services
         public async Task<ServiceResult<List<UserSessionDTO>>> GetSessionByUserIdAsync(string userId)
         {
             // Validate the user ID
-            var idCheck = Guard.AgainstNullOrEmpty(userId, nameof(userId));
+            var idCheck = MyValidator.AgainstNullOrEmpty(userId, nameof(userId));
             if (!idCheck.Succeeded)
                 return ServiceResult<List<UserSessionDTO>>.FailureResult(idCheck.Errors.First().Description);
 
@@ -62,7 +61,7 @@ namespace Server.Services
         public async Task<ServiceResult<List<UserSessionDTO>>> GetSessionByRoleIdAsync(string roleId)
         {
             // Validate the role ID
-            var idCheck = Guard.AgainstNullOrEmpty(roleId, nameof(roleId));
+            var idCheck = MyValidator.AgainstNullOrEmpty(roleId, nameof(roleId));
             if (!idCheck.Succeeded)
                 return ServiceResult<List<UserSessionDTO>>.FailureResult(idCheck.Errors.First().Description);
 
@@ -84,7 +83,7 @@ namespace Server.Services
         public async Task<ServiceResult<object>> DeleteSessionAsync(string id)
         {
             // Validate the ID
-            var idCheck = Guard.AgainstNullOrEmpty(id, nameof(id));
+            var idCheck = MyValidator.AgainstNullOrEmpty(id, nameof(id));
             if (!idCheck.Succeeded)
                 return ServiceResult<object>.FailureResult(idCheck.Errors.First().Description);
 

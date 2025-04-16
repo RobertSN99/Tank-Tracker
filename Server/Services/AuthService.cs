@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Server.Data;
-using Server.Helper;
 using Server.Helpers;
 using Server.Models.DTOs;
 using Server.Models.Entities;
@@ -31,7 +30,7 @@ namespace Server.Services
         public async Task<ServiceResult<object>> RegisterAsync(RegisterDTO dto)
         {
             // Validate registration data
-            var nullCheck = Guard.AgainstNull(dto, nameof(dto));
+            var nullCheck = MyValidator.AgainstNull(dto, nameof(dto));
             if (!nullCheck.Succeeded)
                 return ServiceResult<object>.FailureResult("Invalid registration data", nullCheck.Errors.Select(e => e.Description));
 
@@ -54,7 +53,7 @@ namespace Server.Services
         public async Task<ServiceResult<object>> LoginAsync(LoginDTO dto)
         {
             // Validate login data
-            var nullCheck = Guard.AgainstNull(dto, nameof(dto));
+            var nullCheck = MyValidator.AgainstNull(dto, nameof(dto));
             if (!nullCheck.Succeeded)
                 return ServiceResult<object>.FailureResult("Invalid login data", nullCheck.Errors.Select(e => e.Description));
 

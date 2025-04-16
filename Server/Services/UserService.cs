@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Server.Data;
 using Server.Helpers;
 using Server.Models.DTOs;
 using Server.Models.Entities;
 using Server.Services.Interfaces;
-using Server.Helper;
 using System.Security.Claims;
-using System.ComponentModel.DataAnnotations;
 
 namespace Server.Services
 {
@@ -83,11 +80,11 @@ namespace Server.Services
         public async Task<ServiceResult<object>> AssignRoleToUserAsync(string userId, string roleId)
         {
             // Validate the userId parameter
-            var userValidationResult = await IdentityValidator.ValidateUserByIdAsync(userId, _userManager);
+            var userValidationResult = await MyValidator.ValidateUserByIdAsync(userId, _userManager);
             if (!userValidationResult.Success) return userValidationResult;
 
             // Validate the roleId parameter
-            var roleValidationResult = await IdentityValidator.ValidateRoleByIdAsync(roleId, _roleManager);
+            var roleValidationResult = await MyValidator.ValidateRoleByIdAsync(roleId, _roleManager);
             if (!roleValidationResult.Success) return roleValidationResult;
 
             // Check if the user already has the role
@@ -111,16 +108,18 @@ namespace Server.Services
         public async Task<ServiceResult<object>> ChangePasswordAsync(string userId, UserPasswordChangeDTO dto)
         {
             // Validate the userId parameter
-            var userValidationResult = await IdentityValidator.ValidateUserByIdAsync(userId, _userManager);
+            var userValidationResult = await MyValidator.ValidateUserByIdAsync(userId, _userManager);
             if (!userValidationResult.Success) return userValidationResult;
 
             // Validate the dto.OldPassword
-            var oldPasswordNullCheck = Guard.AgainstNullOrEmpty(dto.OldPassword, nameof(dto.OldPassword));
-            if (!oldPasswordNullCheck.Succeeded) return ServiceResult<object>.FailureResult(oldPasswordNullCheck.Errors.First().Description, oldPasswordNullCheck.Errors.Select(e => e.Description));
+            var oldPasswordNullCheck = MyValidator.AgainstNullOrEmpty(dto.OldPassword, nameof(dto.OldPassword));
+            if (!oldPasswordNullCheck.Succeeded) 
+                return ServiceResult<object>.FailureResult(oldPasswordNullCheck.Errors.First().Description, oldPasswordNullCheck.Errors.Select(e => e.Description));
 
             // Validate the dto.NewPassword
-            var newPasswordNullCheck = Guard.AgainstNullOrEmpty(dto.NewPassword, nameof(dto.NewPassword));
-            if (!newPasswordNullCheck.Succeeded) return ServiceResult<object>.FailureResult(newPasswordNullCheck.Errors.First().Description, newPasswordNullCheck.Errors.Select(e => e.Description));
+            var newPasswordNullCheck = MyValidator.AgainstNullOrEmpty(dto.NewPassword, nameof(dto.NewPassword));
+            if (!newPasswordNullCheck.Succeeded) 
+                return ServiceResult<object>.FailureResult(newPasswordNullCheck.Errors.First().Description, newPasswordNullCheck.Errors.Select(e => e.Description));
 
             // Change the password
             var user = (User)userValidationResult.Data!;
@@ -134,7 +133,7 @@ namespace Server.Services
         public async Task<ServiceResult<object>> DeleteUserAsync(string userId)
         {
             // Validate the userId parameter
-            var userValidationResult = await IdentityValidator.ValidateUserByIdAsync(userId, _userManager);
+            var userValidationResult = await MyValidator.ValidateUserByIdAsync(userId, _userManager);
             if (!userValidationResult.Success) return userValidationResult;
 
             // Delete the user
@@ -149,7 +148,7 @@ namespace Server.Services
         public async Task<ServiceResult<UserDTO>> GetUserByEmailAsync(string email)
         {
             // Validate the the email parameter
-            var userValidationResult = await IdentityValidator.ValidateUserByEmailAsync(email, _userManager);
+            var userValidationResult = await MyValidator.ValidateUserByEmailAsync(email, _userManager);
             if (!userValidationResult.Success) 
                 return ServiceResult<UserDTO>.FailureResult(userValidationResult.Message!, userValidationResult.Errors);
 
@@ -172,7 +171,7 @@ namespace Server.Services
         public async Task<ServiceResult<UserDTO>> GetUserByIdAsync(string userId)
         {
             // Validate the userId parameter
-            var uservalidationResult = await IdentityValidator.ValidateUserByIdAsync(userId, _userManager);
+            var uservalidationResult = await MyValidator.ValidateUserByIdAsync(userId, _userManager);
             if (!uservalidationResult.Success) 
                 return ServiceResult<UserDTO>.FailureResult(uservalidationResult.Message!, uservalidationResult.Errors);
 
@@ -193,11 +192,11 @@ namespace Server.Services
         public async Task<ServiceResult<object>> RemoveRoleFromUserAsync(string userId, string roleId)
         {
             // Validate the userId parameter
-            var userValidationResult = await IdentityValidator.ValidateUserByIdAsync(userId, _userManager);
+            var userValidationResult = await MyValidator.ValidateUserByIdAsync(userId, _userManager);
             if (!userValidationResult.Success) return userValidationResult;
 
             // Validate the roleId parameter
-            var roleValidationResult = await IdentityValidator.ValidateRoleByIdAsync(roleId, _roleManager);
+            var roleValidationResult = await MyValidator.ValidateRoleByIdAsync(roleId, _roleManager);
             if (!roleValidationResult.Success) return roleValidationResult;
             // Remove the role from the user
             var user = (User)userValidationResult.Data!;
@@ -213,7 +212,7 @@ namespace Server.Services
         public async Task<ServiceResult<UserDTO>> UpdateUserAsync(string userId, UserUpdateDTO dto)
         {
             // Validate the userId parameter
-            var userValidationResult = await IdentityValidator.ValidateUserByIdAsync(userId, _userManager);
+            var userValidationResult = await MyValidator.ValidateUserByIdAsync(userId, _userManager);
             if (!userValidationResult.Success) return ServiceResult<UserDTO>.FailureResult(userValidationResult.Message!, userValidationResult.Errors);
 
             var user = (User)userValidationResult.Data!;
@@ -260,7 +259,7 @@ namespace Server.Services
             var userId = claimsUser.FindFirstValue(ClaimTypes.NameIdentifier);
 
             // Validate the userId parameter
-            var userValidationResult = await IdentityValidator.ValidateUserByIdAsync(userId!, _userManager);
+            var userValidationResult = await MyValidator.ValidateUserByIdAsync(userId!, _userManager);
             if (!userValidationResult.Success) return userValidationResult;
 
             var user = (User)userValidationResult.Data!;

@@ -27,7 +27,7 @@
 
     public class TankUpdateDTO
     {
-        public string? Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
         public int? Tier { get; set; }
         public int? NationId { get; set; }
         public int? TankClassId { get; set; }
