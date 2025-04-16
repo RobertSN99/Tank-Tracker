@@ -7,11 +7,13 @@
 - **View Tanks**  
   Anyone can browse the list of tanks and view their details without needing to log in.
 
-- **Authentication & Authorization**  
+- **Authentication & Authorization**
+
   - Users can register and log in using a cookie-based authentication system.
   - Role-based access control is implemented using ASP.NET Core Identity and policy-based authorization.
 
-- **Tank Management (Restricted Access)**  
+- **Tank Management (Restricted Access)**
+
   - **Moderators** can add, edit, or delete tanks.
   - **Admins** can do everything moderators can, plus manage users (including promoting/demoting moderators).
 
@@ -31,20 +33,21 @@
 ## Project Status
 
 This project is a **work in progress**:
+
 - [x] Authentication system (register, login, logout)
 - [x] Role-based access control
 - [x] Session tracking
-- [ ] Tank endpoints
+- [x] Tank endpoints
 - [ ] Frontend integration for tanks
 - [ ] Rating functionality
 
 ## Setup Instructions
 
-*To be added once the project reaches MVP status.*
+_To be added once the project reaches MVP status._
 
 ## Roadmap
 
-- [ ] Implement tank CRUD endpoints in the backend
+- [x] Implement tank CRUD endpoints in the backend
 - [ ] Integrate frontend with tank endpoints
 - [ ] Develop rating functionality for tanks
 - [ ] Enhance UI/UX for better user experience
