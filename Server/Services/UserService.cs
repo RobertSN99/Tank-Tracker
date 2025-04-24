@@ -94,7 +94,7 @@ namespace Server.Services
 
             if (userRoles.Contains(role.Name!))
             {
-                return ServiceResult<object>.FailureResult($"User '{user.UserName}' already has the role '{role.Name}'", [$"User '{user.UserName}' already has the role '{role.Name}'"]);
+                return ServiceResult<object>.FailureResult($"User '{user.UserName}' already has the role '{role.Name}'", [$"User '{user.UserName}' already has the role '{role.Name}'"], 409);
             }
 
             // Assign the role to the user
@@ -110,6 +110,12 @@ namespace Server.Services
             // Validate the userId parameter
             var userValidationResult = await MyValidator.ValidateUserByIdAsync(userId, _userManager);
             if (!userValidationResult.Success) return userValidationResult;
+
+            // Check if the current user is an admin or the user themselves
+            var currentUserId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var isAdmin = _httpContextAccessor.HttpContext?.User.IsInRole("Administrator") ?? false;
+            if (currentUserId != userId || !isAdmin)
+                return ServiceResult<object>.FailureResult("Access forbidden", null, 403);
 
             // Validate the dto.OldPassword
             var oldPasswordNullCheck = MyValidator.AgainstNullOrEmpty(dto.OldPassword, nameof(dto.OldPassword));
@@ -127,7 +133,7 @@ namespace Server.Services
             if (!result.Succeeded) 
                 return ServiceResult<object>.FailureResult($"Failed to change password for user '{user.UserName}'", result.Errors.Select(e => e.Description));
             
-            return ServiceResult<object>.SuccessResult(user, $"Password changed successfully for user '{user.UserName}'");
+            return ServiceResult<object>.SuccessResult(null, $"Password changed successfully for user '{user.UserName}'", 204);
         }
 
         public async Task<ServiceResult<object>> DeleteUserAsync(string userId)
@@ -142,22 +148,22 @@ namespace Server.Services
             if (!result.Succeeded) 
                 return ServiceResult<object>.FailureResult($"Failed to delete user '{user.UserName}'", result.Errors.Select(e => e.Description));
             
-            return ServiceResult<object>.SuccessResult(user, $"User '{user.UserName}' deleted successfully.");
+            return ServiceResult<object>.SuccessResult(null, $"User '{user.UserName}' deleted successfully.", 204);
         }
 
-        public async Task<ServiceResult<UserDTO>> GetUserByEmailAsync(string email)
+        public async Task<ServiceResult<object>> GetUserByEmailAsync(string email)
         {
             // Validate the the email parameter
             var userValidationResult = await MyValidator.ValidateUserByEmailAsync(email, _userManager);
             if (!userValidationResult.Success) 
-                return ServiceResult<UserDTO>.FailureResult(userValidationResult.Message!, userValidationResult.Errors);
+                return ServiceResult<object>.FailureResult(userValidationResult.Message!, userValidationResult.Errors);
 
             var user = (User)userValidationResult.Data!;
 
             // Get the roles of the user
             var roles = await _userManager.GetRolesAsync(user!);
 
-            return ServiceResult<UserDTO>.SuccessResult(new UserDTO
+            return ServiceResult<object>.SuccessResult(new UserDTO
             {
                 Id = user.Id,
                 UserName = user.UserName!,
@@ -168,17 +174,37 @@ namespace Server.Services
             });
         }
 
-        public async Task<ServiceResult<UserDTO>> GetUserByIdAsync(string userId)
+        public async Task<ServiceResult<object>> GetUserByNameAsync(string userName)
+        {
+            // Validate the userName parameter
+            var userValidationResult = await MyValidator.ValidateUserByUsernameAsync(userName, _userManager);
+            if (!userValidationResult.Success)
+                return ServiceResult<object>.FailureResult(userValidationResult.Message!, userValidationResult.Errors);
+            var user = (User)userValidationResult.Data!;
+            // Get the roles of the user
+            var roles = await _userManager.GetRolesAsync(user!);
+            return ServiceResult<object>.SuccessResult(new UserDTO
+            {
+                Id = user.Id,
+                UserName = user.UserName!,
+                Email = user.Email!,
+                CreatedAt = user.CreatedAt,
+                UpdatedAt = user.UpdatedAt,
+                Roles = roles.ToList()
+            });
+        }
+
+        public async Task<ServiceResult<object>> GetUserByIdAsync(string userId)
         {
             // Validate the userId parameter
             var uservalidationResult = await MyValidator.ValidateUserByIdAsync(userId, _userManager);
             if (!uservalidationResult.Success) 
-                return ServiceResult<UserDTO>.FailureResult(uservalidationResult.Message!, uservalidationResult.Errors);
+                return ServiceResult<object>.FailureResult(uservalidationResult.Message!, uservalidationResult.Errors);
 
             // Get the roles of the user
             var user = (User)uservalidationResult.Data!;
             var roles = await _userManager.GetRolesAsync(user!);
-            return ServiceResult<UserDTO>.SuccessResult(new UserDTO
+            return ServiceResult<object>.SuccessResult(new UserDTO
             {
                 Id = user!.Id,
                 UserName = user!.UserName!,
@@ -206,14 +232,14 @@ namespace Server.Services
             if (!result.Succeeded) 
                 return ServiceResult<object>.FailureResult($"Failed to remove role '{role.Name}' from user '{user.UserName}'", result.Errors.Select(e => e.Description));
             
-            return ServiceResult<object>.SuccessResult(role, $"Role '{role.Name}' removed from user '{user.UserName}' successfully.");
+            return ServiceResult<object>.SuccessResult(null, $"Role '{role.Name}' removed from user '{user.UserName}' successfully.", 204);
         }
 
-        public async Task<ServiceResult<UserDTO>> UpdateUserAsync(string userId, UserUpdateDTO dto)
+        public async Task<ServiceResult<object>> UpdateUserAsync(string userId, UserUpdateDTO dto)
         {
             // Validate the userId parameter
             var userValidationResult = await MyValidator.ValidateUserByIdAsync(userId, _userManager);
-            if (!userValidationResult.Success) return ServiceResult<UserDTO>.FailureResult(userValidationResult.Message!, userValidationResult.Errors);
+            if (!userValidationResult.Success) return ServiceResult<object>.FailureResult(userValidationResult.Message!, userValidationResult.Errors);
 
             var user = (User)userValidationResult.Data!;
             bool updated = false;
@@ -235,11 +261,11 @@ namespace Server.Services
                 user.UpdatedAt = DateTime.UtcNow;
                 var result = await _userManager.UpdateAsync(user);
                 if (!result.Succeeded)
-                    return ServiceResult<UserDTO>.FailureResult("Failed to update user", result.Errors.Select(e => e.Description));
+                    return ServiceResult<object>.FailureResult("Failed to update user", result.Errors.Select(e => e.Description));
             }
 
             var roles = await _userManager.GetRolesAsync(user);
-            return ServiceResult<UserDTO>.SuccessResult(new UserDTO
+            return ServiceResult<object>.SuccessResult(new UserDTO
             {
                 Id = user.Id,
                 UserName = user!.UserName!,
@@ -254,7 +280,7 @@ namespace Server.Services
         {
             var claimsUser = _httpContextAccessor.HttpContext?.User;
             if (claimsUser == null)
-                return ServiceResult<object>.FailureResult("No user context found");
+                return ServiceResult<object>.FailureResult("No user context found", null, 404);
 
             var userId = claimsUser.FindFirstValue(ClaimTypes.NameIdentifier);
 

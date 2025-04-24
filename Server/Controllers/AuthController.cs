@@ -21,9 +21,7 @@ namespace Server.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
         {
             var result = await _authService.RegisterAsync(registerDTO);
-            return result.Success
-                ? Ok(result.Data)
-                : BadRequest(new { result.Message, result.Errors });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpPost("login")]
@@ -31,18 +29,14 @@ namespace Server.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
         {
             var result = await _authService.LoginAsync(loginDTO);
-            return result.Success
-                ? Ok(result.Data)
-                : Unauthorized(new { result.Message, result.Errors });
+            return result.Success? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
             var result = await _authService.LogoutAsync();
-            return result.Success
-                ? Ok(new { result.Message })
-                : BadRequest(new { result.Message, result.Errors });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpGet("access-denied")]

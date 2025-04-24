@@ -43,7 +43,7 @@ namespace Server.Helpers
             var user = await userManager.FindByIdAsync(userId);
             var existsCheck = AgainstCondition(user == null, $"User with ID '{userId}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
 
             return ServiceResult<object>.SuccessResult(user);
         }
@@ -63,8 +63,23 @@ namespace Server.Helpers
             var user = await userManager.FindByEmailAsync(email);
             var existsCheck = AgainstCondition(user == null, $"User with email '{email}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
 
+            return ServiceResult<object>.SuccessResult(user);
+        }
+
+        // Validates if a user exists by username.
+        public static async Task<ServiceResult<object>> ValidateUserByUsernameAsync(string username, UserManager<User> userManager)
+        {
+            var usernameNullCheck = AgainstNullOrEmpty(username, nameof(username));
+            if (!usernameNullCheck.Succeeded)
+                return ServiceResult<object>.FailureResult(usernameNullCheck.Errors.First().Description, usernameNullCheck.Errors.Select(e => e.Description));
+            
+            var user = await userManager.FindByNameAsync(username);
+            var existsCheck = AgainstCondition(user == null, $"User with username '{username}' does not exist.");
+            if (!existsCheck.Succeeded)
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
+            
             return ServiceResult<object>.SuccessResult(user);
         }
 
@@ -78,7 +93,7 @@ namespace Server.Helpers
             var role = await roleManager.FindByIdAsync(roleId);
             var existsCheck = AgainstCondition(role == null, $"Role with ID '{roleId}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
             
             return ServiceResult<object>.SuccessResult(role);
         }
@@ -93,7 +108,7 @@ namespace Server.Helpers
             var role = await roleManager.FindByNameAsync(roleName);
             var existsCheck = AgainstCondition(role == null, $"Role '{roleName}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
             
             return ServiceResult<object>.SuccessResult(role);
         }
@@ -108,7 +123,7 @@ namespace Server.Helpers
             var status = await context.Statuses.FindAsync(statusId);
             var existsCheck = AgainstCondition(status == null, $"Status with ID '{statusId}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
             
             return ServiceResult<object>.SuccessResult(status);
         }
@@ -123,7 +138,7 @@ namespace Server.Helpers
             var status = await context.Statuses.FirstOrDefaultAsync(s => s.Name == statusName);
             var existsCheck = AgainstCondition(status == null, $"Status with name '{statusName}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
            
             return ServiceResult<object>.SuccessResult(status);
         }
@@ -138,7 +153,7 @@ namespace Server.Helpers
             var nation = await context.Nations.FindAsync(nationId);
             var existsCheck = AgainstCondition(nation == null, $"Nation with ID '{nationId}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
 
             return ServiceResult<object>.SuccessResult(nation);
         }
@@ -153,7 +168,7 @@ namespace Server.Helpers
             var nation = await context.Nations.FirstOrDefaultAsync(n => n.Name == nationName);
             var existsCheck = AgainstCondition(nation == null, $"Nation with name '{nationName}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
             
             return ServiceResult<object>.SuccessResult(nation);
         }
@@ -168,7 +183,7 @@ namespace Server.Helpers
             var tankClass = await context.TankClasses.FindAsync(tankClassId);
             var existsCheck = AgainstCondition(tankClass == null, $"Tank Class with ID '{tankClassId}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
 
             return ServiceResult<object>.SuccessResult(tankClass);
         }
@@ -183,7 +198,7 @@ namespace Server.Helpers
             var tankClass = await context.TankClasses.FirstOrDefaultAsync(tc => tc.Name == tankClassName);
             var existsCheck = AgainstCondition(tankClass == null, $"Tank Class with name '{tankClassName}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
 
             return ServiceResult<object>.SuccessResult(tankClass);
         }
@@ -202,7 +217,7 @@ namespace Server.Helpers
                 .FirstOrDefaultAsync(t => t.Id == tankId);
             var existsCheck = AgainstCondition(tank == null, $"Tank with ID '{tankId}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
 
             return ServiceResult<object>.SuccessResult(tank);
         }
@@ -221,7 +236,7 @@ namespace Server.Helpers
                 .FirstOrDefaultAsync(t => t.Name == tankName);
             var existsCheck = AgainstCondition(tank == null, $"Tank with name '{tankName}' does not exist.");
             if (!existsCheck.Succeeded)
-                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(existsCheck.Errors.First().Description, existsCheck.Errors.Select(e => e.Description), 404);
             
             return ServiceResult<object>.SuccessResult(tank);
         }

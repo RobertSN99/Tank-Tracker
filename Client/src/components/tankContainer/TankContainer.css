@@ -4,6 +4,7 @@
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .tanks-list {
@@ -17,9 +18,9 @@
   color: var(--primary-text-color);
   display: grid;
   grid-template-areas:
-    "name name name"
-    "tier class class"
-    "nation status status";
+    "name   name   image  image"
+    "tier   tier   class  class"
+    "nation nation status status";
   padding: 1rem;
   gap: 1rem;
   border-radius: 0.5rem;
@@ -32,8 +33,9 @@
 }
 
 .tank-card:hover {
-  background: rgb(255, 187, 0);
-  color: black;
+  background: rgb(0, 91, 196);
+  text-decoration: none;
+  color: white;
 }
 
 .tank-card > * {
@@ -47,6 +49,41 @@
 .tank-card-name {
   grid-area: name;
   font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.tank-card-rating {
+  font-size: 0.75rem;
+}
+
+.terrible-rating {
+  color: red;
+}
+.bad-rating {
+  color: orange;
+}
+.ok-rating {
+  color: rgb(255, 230, 0);
+}
+[data-theme="light"] .ok-rating {
+  color: rgb(218, 196, 0);
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+.good-rating {
+  color: rgb(0, 182, 0);
+}
+.excellent-rating {
+  color: rgb(0, 162, 255);
+}
+.epic-rating {
+  color: rgb(162, 0, 255);
+}
+.no-rating {
+  color: gray;
 }
 
 .tank-card-nation {
@@ -65,6 +102,11 @@
   grid-area: status;
 }
 
+.tank-card-image {
+  grid-area: image;
+  width: 7rem;
+}
+
 .pagination {
   display: flex;
   position: absolute;
@@ -79,13 +121,9 @@
 
 .pagination-btn {
   padding: 0.5rem 1rem;
-  background-color: rgb(255, 187, 0);
-  color: black;
-  border: none;
   border-radius: 0.5rem;
   cursor: pointer;
   font-family: "Lexend Exa";
-  font-weight: bold;
 }
 
 .pagination-btn:disabled {
@@ -96,4 +134,21 @@
 .pagination-info {
   font-family: "Lexend Exa";
   font-weight: bold;
+}
+
+.no-tanks-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.no-tanks-message h5 {
+  font-size: larger;
+  margin-bottom: 1rem;
 }

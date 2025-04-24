@@ -32,7 +32,7 @@ namespace Server.Services
             // Validate registration data
             var nullCheck = MyValidator.AgainstNull(dto, nameof(dto));
             if (!nullCheck.Succeeded)
-                return ServiceResult<object>.FailureResult("Invalid registration data", nullCheck.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(nullCheck.Errors.First().Description, nullCheck.Errors.Select(e => e.Description));
 
             var user = new User
             {
@@ -43,11 +43,11 @@ namespace Server.Services
 
             var result = await _userManager.CreateAsync(user, dto.Password);
             if (!result.Succeeded)
-                return ServiceResult<object>.FailureResult("User registration failed", result.Errors.Select(e => e.Description));
+                return ServiceResult<object>.FailureResult(result.Errors.First().Description, result.Errors.Select(e => e.Description));
 
             await _userManager.AddToRoleAsync(user, "User");
 
-            return ServiceResult<object>.SuccessResult(user, "User registered successfully.");
+            return ServiceResult<object>.SuccessResult(user, "User registered successfully.", 201);
         }
 
         public async Task<ServiceResult<object>> LoginAsync(LoginDTO dto)
@@ -59,15 +59,15 @@ namespace Server.Services
 
             var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null)
-                return ServiceResult<object>.FailureResult("Invalid credentials");
+                return ServiceResult<object>.FailureResult("Invalid credentials", null, 401);
 
             var passwordValid = await _userManager.CheckPasswordAsync(user, dto.Password);
             if (!passwordValid)
-                return ServiceResult<object>.FailureResult("Invalid credentials");
+                return ServiceResult<object>.FailureResult("Invalid credentials", null, 401);
 
             var httpContext = _httpContextAccessor.HttpContext;
             if (httpContext == null)
-                return ServiceResult<object>.FailureResult("No HTTP context available");
+                return ServiceResult<object>.FailureResult("No HTTP context available", null, 404);
 
             var ipAddress = httpContext.Connection.RemoteIpAddress?.ToString();
             var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
@@ -124,11 +124,11 @@ namespace Server.Services
         {
             var userClaims = _httpContextAccessor.HttpContext?.User;
             if (userClaims == null)
-                return ServiceResult<object>.FailureResult("No authenticated user found");
+                return ServiceResult<object>.FailureResult("No authenticated user found", null, 404);
 
             var userId = userClaims.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
-                return ServiceResult<object>.FailureResult("User ID not found in claims");
+                return ServiceResult<object>.FailureResult("User ID not found in claims", null, 404);
 
             var lastSession = await _context.UserSessions
                 .Where(s => s.UserId == userId && s.LogoutTime == null)
@@ -144,7 +144,7 @@ namespace Server.Services
 
             await _signInManager.SignOutAsync();
 
-            return ServiceResult<object>.SuccessResult(null, "User logged out successfully");
+            return ServiceResult<object>.SuccessResult(null, "User logged out successfully", 204);
         }
     }
 }

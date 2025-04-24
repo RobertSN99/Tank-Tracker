@@ -1,0 +1,70 @@
+.userprofile-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 50vh;
+}
+
+.userprofile-card {
+  background: var(--background-color);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 100%;
+  color: var(--primary-text-color);
+}
+
+.userprofile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.userprofile-avatar {
+  background-color: #0a84ff;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userprofile-name {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.userprofile-email {
+  font-size: 1rem;
+  color: var(--primary-text-color);
+  opacity: 80%;
+}
+
+.userprofile-section {
+  margin-bottom: 1.5rem;
+}
+
+.userprofile-roles {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.userprofile-role {
+  padding: 0.4rem 0.8rem;
+  border-radius: 1rem;
+  background-color: var(--alternate-background-color);
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+[data-theme="dark"] .userprofile-role {
+  background-color: #4b4b4b;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 1);
+}

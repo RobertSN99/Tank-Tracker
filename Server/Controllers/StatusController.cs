@@ -21,7 +21,7 @@ namespace Server.Controllers
         public async Task<IActionResult> GetAllStatuses()
         {
             var result = await _statusService.GetAllStatusesAsync();
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpPost]
@@ -29,14 +29,14 @@ namespace Server.Controllers
         public async Task<IActionResult> CreateStatus([FromBody] StatusCreateDTO statusDto)
         {
             var result = await _statusService.CreateStatusAsync(statusDto);
-            return result.Success ? Ok(result.Data) : BadRequest(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpGet("id/{statusId}")]
         public async Task<IActionResult> GetStatusById(int statusId)
         {
             var result = await _statusService.GetStatusByIdAsync(statusId);
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpPatch("id/{statusId}")]
@@ -44,7 +44,7 @@ namespace Server.Controllers
         public async Task<IActionResult> UpdateStatus(int statusId, [FromBody] StatusUpdateDTO statusDto)
         {
             var result = await _statusService.UpdateStatusAsync(statusId, statusDto);
-            return result.Success ? Ok(result.Data) : BadRequest(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpDelete("id/{statusId}")]
@@ -52,7 +52,7 @@ namespace Server.Controllers
         public async Task<IActionResult> DeleteStatus(int statusId)
         {
             var result = await _statusService.DeleteStatusAsync(statusId);
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
     }
 }

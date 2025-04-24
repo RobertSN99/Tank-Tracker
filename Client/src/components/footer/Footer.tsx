@@ -1,9 +1,13 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import "./Footer.css";
 import { FaRegFilePdf } from "react-icons/fa6";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
-  const userIsLoggedIn: boolean = true;
+  const { user, logout } = useAuth();
+  const isAdmin = user?.roles?.includes("Administrator");
+  const navigate = useNavigate();
   return (
     <footer>
       <section className="left-section">
@@ -16,13 +20,22 @@ function Footer() {
           <li>
             <a href="/">Home</a>
           </li>
-          {userIsLoggedIn ? (
+          {user ? (
             <>
+              {isAdmin && (
+                <li>
+                  <a href="/admin">Admin</a>
+                </li>
+              )}
               <li>
-                <a href="/admin">Admin</a>
-              </li>
-              <li>
-                <a href="/logout">Logout</a>
+                <a
+                  onClick={async () => {
+                    await logout();
+                    navigate("/login");
+                  }}
+                >
+                  Logout
+                </a>
               </li>
             </>
           ) : (

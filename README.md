@@ -17,11 +17,17 @@
   - **Moderators** can add, edit, or delete tanks.
   - **Admins** can do everything moderators can, plus manage users (including promoting/demoting moderators).
 
-- **Session Tracking**  
-  Active sessions are tracked and visible to authorized roles.
+- **Session Tracking**
 
-- **Rating System (Upcoming)**  
-  Logged-in users will be able to rate tanks from 1 to 5 stars.
+  - Active sessions are tracked and visible to authorized roles.
+
+- **Rating System**
+
+  - **Admins** and **Moderators** will be able to rate tanks from 1 to 5 stars, with steps of 0.5.
+
+- **Frontend theme toggle**
+
+  - Users can select between dark theme and light theme
 
 ## Tech Stack
 
@@ -30,25 +36,19 @@
 - **Database:** SQL Server
 - **Authentication:** Cookie-based (HttpOnly)
 
-## Project Status
+## Roadmap
 
-This project is a **work in progress**:
-
-- [x] Authentication system (register, login, logout)
-- [x] Role-based access control
-- [x] Session tracking
-- [x] Tank endpoints
-- [ ] Frontend integration for tanks
-- [ ] Rating functionality
+- [x] Implement authentication & authorization system
+- [x] Implement session tracking
+- [x] Implement tank CRUD endpoints in the backend
+- [x] Integrate frontend with tank endpoints
+- [x] Develop rating functionality for tanks
+- [ ] Get tanks data directly from WarGaming API
+- [ ] Expand auth system by using OAuth 2.0
+- [ ] Implement frontend user management
+- [ ] Enhance UI/UX for better user experience
+- [ ] Write comprehensive tests for both frontend and backend
 
 ## Setup Instructions
 
-_To be added once the project reaches MVP status._
-
-## Roadmap
-
-- [x] Implement tank CRUD endpoints in the backend
-- [ ] Integrate frontend with tank endpoints
-- [ ] Develop rating functionality for tanks
-- [ ] Enhance UI/UX for better user experience
-- [ ] Write comprehensive tests for both frontend and backend
+_To be added once the project is finished._

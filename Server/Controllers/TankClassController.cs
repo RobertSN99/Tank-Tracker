@@ -21,7 +21,7 @@ namespace Server.Controllers
         public async Task<IActionResult> GetAllClasses()
         {
             var result = await _tankClassService.GetAllClassesAsync();
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpPost]
@@ -29,14 +29,14 @@ namespace Server.Controllers
         public async Task<IActionResult> CreateClass([FromBody] TankClassCreateDTO tankClassDto)
         {
             var result = await _tankClassService.CreateClassAsync(tankClassDto);
-            return result.Success ? Ok(result.Data) : BadRequest(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpGet("id/{classId}")]
         public async Task<IActionResult> GetClassById(int classId)
         {
             var result = await _tankClassService.GetClassByIdAsync(classId);
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpPatch("id/{classId}")]
@@ -44,7 +44,7 @@ namespace Server.Controllers
         public async Task<IActionResult> UpdateClass(int classId, [FromBody] TankClassUpdateDTO tankClassDto)
         {
             var result = await _tankClassService.UpdateClassAsync(classId, tankClassDto);
-            return result.Success ? Ok(result.Data) : BadRequest(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpDelete("id/{classId}")]
@@ -52,7 +52,7 @@ namespace Server.Controllers
         public async Task<IActionResult> DeleteClass(int classId)
         {
             var result = await _tankClassService.DeleteClassAsync(classId);
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
     }
 }

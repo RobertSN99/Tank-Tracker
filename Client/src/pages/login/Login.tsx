@@ -1,12 +1,35 @@
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import "./Login.css";
+import React, { useState } from "react";
+
 function Login() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    console.log({ email, password });
+
+    try {
+      await login(email, password);
+      navigate("/");
+    } catch (error) {
+      console.error("Login failed:", error);
+      setError("Invalid credentials.");
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div className="login-container">
       <h1 className="login-container-title">Sign In</h1>
@@ -33,6 +56,7 @@ function Login() {
             required
           />
         </div>
+        {error && <p className="login-error">{error}</p>}
         <div className="login-form-group forgot-password-group">
           <a href="#" id="forgot-password-link">
             I forgot my password
@@ -41,8 +65,8 @@ function Login() {
             Sign up
           </a>
         </div>
-        <button type="submit" id="login-submit-btn">
-          Login
+        <button type="submit" id="login-submit-btn" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>

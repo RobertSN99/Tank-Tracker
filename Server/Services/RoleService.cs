@@ -22,9 +22,9 @@ public class RoleService : IRoleService
         var role = new IdentityRole(roleName);
         var result = await _roleManager.CreateAsync(role);
         if (!result.Succeeded) 
-            return ServiceResult<object>.FailureResult($"Failed to create role '{roleName}'", result.Errors.Select(e => e.Description));
+            return ServiceResult<object>.FailureResult(result.Errors.First().Description, result.Errors.Select(e => e.Description));
 
-        return ServiceResult<object>.SuccessResult(role, $"Role '{roleName}' created successfully.");
+        return ServiceResult<object>.SuccessResult(role, "Role created successfully.", 201);
     }
 
     public async Task<ServiceResult<object>> DeleteRoleAsync(string roleId)
@@ -36,9 +36,9 @@ public class RoleService : IRoleService
         var role = await _roleManager.FindByIdAsync(roleId);
         var result = await _roleManager.DeleteAsync(role!);
         if (!result.Succeeded) 
-            return ServiceResult<object>.FailureResult($"Failed to delete role '{role!.Name}'", result.Errors.Select(e => e.Description));
+            return ServiceResult<object>.FailureResult(result.Errors.First().Description, result.Errors.Select(e => e.Description));
 
-        return ServiceResult<object>.SuccessResult(role, $"Role '{role!.Name}' deleted successfully.");
+        return ServiceResult<object>.SuccessResult(null, "Role deleted successfully.", 204);
     }
 
     public async Task<ServiceResult<object>> GetRoleByIdAsync(string roleId)
@@ -49,7 +49,7 @@ public class RoleService : IRoleService
 
         var role = await _roleManager.FindByIdAsync(roleId);
 
-        return ServiceResult<object>.SuccessResult(role);
+        return ServiceResult<object>.SuccessResult(role, "Role retrieved successfully.");
     }
 
     public async Task<ServiceResult<object>> GetRoleByNameAsync(string roleName)
@@ -60,7 +60,7 @@ public class RoleService : IRoleService
 
         var role = await _roleManager.FindByNameAsync(roleName);
 
-        return ServiceResult<object>.SuccessResult(role);
+        return ServiceResult<object>.SuccessResult(role, "Role retrieved successfully.");
     }
 
     public async Task<ServiceResult<object>> GetAllRolesAsync()

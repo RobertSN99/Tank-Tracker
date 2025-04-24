@@ -20,14 +20,14 @@ namespace Server.Controllers
         public async Task<IActionResult> GetAllRoles()
         {
             var result = await _roleService.GetAllRolesAsync();
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpGet("id/{id}")]
         public async Task<IActionResult> GetRoleById(string id)
         {
             var result = await _roleService.GetRoleByIdAsync(id);
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpPost]
@@ -35,7 +35,7 @@ namespace Server.Controllers
         public async Task<IActionResult> CreateRole([FromBody] RoleDTO roleDTO)
         {
             var result = await _roleService.CreateRoleAsync(roleDTO!.Name!);
-            return result.Success ? Ok(result.Data) : BadRequest(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpPut("id/{id}")]
@@ -43,7 +43,7 @@ namespace Server.Controllers
         public async Task<IActionResult> UpdateRole(string id, [FromBody] RoleDTO roleDTO)
         {
             var result = await _roleService.UpdateRoleAsync(id, roleDTO!.Name!);
-            return result.Success ? Ok(result.Data) : BadRequest(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpDelete("id/{id}")]
@@ -51,14 +51,14 @@ namespace Server.Controllers
         public async Task<IActionResult> DeleteRole(string id)
         {
             var result = await _roleService.DeleteRoleAsync(id);
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpGet("name/{name}")]
         public async Task<IActionResult> GetRoleByName(string name)
         {
             var result = await _roleService.GetRoleByNameAsync(name);
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
     }
 }

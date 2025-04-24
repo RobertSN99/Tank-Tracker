@@ -23,8 +23,9 @@ namespace Server.Services
                 .Include(n => n.Tanks)
                 .ToListAsync();
             if (nations == null || nations.Count == 0)
-                return ServiceResult<object>.FailureResult("No nations found in the database.");
-            return ServiceResult<object>.SuccessResult(nations, "Nations retrieved successfully.");
+                return ServiceResult<object>.FailureResult("No nations found in the database.", null, 404);
+            var nationDTOs = nations.Select(DTOMapper.ToNationDTO).ToList();
+            return ServiceResult<object>.SuccessResult(nationDTOs, "Nations retrieved successfully.");
         }
 
         public async Task<ServiceResult<object>> GetNationByIdAsync(int nationId)
@@ -35,7 +36,20 @@ namespace Server.Services
 
             // Retrieve the nation by ID
             var nation = validationResult.Data as Nation;
-            return ServiceResult<object>.SuccessResult(nation, "Nation retrieved successfully.");
+            var dto = DTOMapper.ToNationDTO(nation!);
+            return ServiceResult<object>.SuccessResult(dto, "Nation retrieved successfully.");
+        }
+
+        public async Task<ServiceResult<object>> GetNationByNameAsync(string nationName)
+        {
+            // Validate the input
+            var validationResult = await MyValidator.ValidateNationByNameAsync(nationName, _context);
+            if (!validationResult.Success) return validationResult;
+
+            // Retrieve the nation by name
+            var nation = validationResult.Data as Nation;
+            var dto = DTOMapper.ToNationDTO(nation!);
+            return ServiceResult<object>.SuccessResult(dto, "Nation retrieved successfully.");
         }
 
         public async Task<ServiceResult<object>> CreateNationAsync(NationCreateDTO nationDto)
@@ -49,7 +63,7 @@ namespace Server.Services
             var existsCheck = await _context.Nations
                 .AnyAsync(n => n.Name == nationDto.Name);
             if (existsCheck)
-                return ServiceResult<object>.FailureResult($"Nation with name '{nationDto.Name}' already exists.");
+                return ServiceResult<object>.FailureResult($"Nation with name '{nationDto.Name}' already exists.", null, 409);
 
             // Create the new nation
             var newNation = new Nation
@@ -64,7 +78,7 @@ namespace Server.Services
             if (result == 0)
                 return ServiceResult<object>.FailureResult("Failed to save the new nation to the database");
 
-            return ServiceResult<object>.SuccessResult(newNation, "Nation created successfully");
+            return ServiceResult<object>.SuccessResult(DTOMapper.ToNationDTO(newNation), "Nation created successfully", 201);
         }
 
         public async Task<ServiceResult<object>> DeleteNationAsync(int nationId)
@@ -80,7 +94,7 @@ namespace Server.Services
             if (result == 0)
                 return ServiceResult<object>.FailureResult("Failed to delete the nation from the database");
 
-            return ServiceResult<object>.SuccessResult(null, "Nation deleted successfully");
+            return ServiceResult<object>.SuccessResult(null, "Nation deleted successfully", 204);
         }
 
         public async Task<ServiceResult<object>> UpdateNationAsync(int nationId, NationUpdateDTO nationDto)
@@ -98,7 +112,7 @@ namespace Server.Services
             var existsCheck = await _context.Nations
                 .AnyAsync(n => n.Name == nationDto.Name && n.Id != nationId);
             if (existsCheck)
-                return ServiceResult<object>.FailureResult($"Nation with name '{nationDto.Name}' already exists.");
+                return ServiceResult<object>.FailureResult($"Nation with name '{nationDto.Name}' already exists.", null, 409);
 
             // Update the nation
             var nationToUpdate = validationResult.Data as Nation;
@@ -108,7 +122,7 @@ namespace Server.Services
             if (result == 0)
                 return ServiceResult<object>.FailureResult("Failed to update the nation in the database");
 
-            return ServiceResult<object>.SuccessResult(nationToUpdate, "Nation updated successfully");
+            return ServiceResult<object>.SuccessResult(DTOMapper.ToNationDTO(nationToUpdate), "Nation updated successfully");
         }
     }
 }

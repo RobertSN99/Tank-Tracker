@@ -1,31 +1,48 @@
 import { useState } from "react";
 import "./Register.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [password, setPassword] = useState<string>("");
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!passwordMatch) return alert("Passwords do not match"); // Extra safety check
 
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get("email") as string;
-    const username = formData.get("name") as string;
-
-    console.log({ username, email, password });
+    try {
+      console.log(formData);
+      await axios.post("https://localhost:7018/api/Auth/register", formData);
+      alert("Registered successfully!");
+      navigate("/login");
+    } catch (err: any) {
+      console.error(err);
+      alert(err?.response?.data?.message || "Failed to register.");
+    }
   };
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleConfirmPasswordChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setConfirmPassword(event.target.value);
-    setPasswordMatch(password === event.target.value);
+    const { value } = event.target;
+    setConfirmPassword(value);
+    setPasswordMatch(formData.password === value);
   };
 
   return (
@@ -36,8 +53,10 @@ const Register = () => {
           <input
             type="text"
             id="name"
-            name="name"
+            name="username"
             placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
             required
             autoFocus
           />
@@ -49,6 +68,8 @@ const Register = () => {
             id="email"
             name="email"
             placeholder="E-mail"
+            value={formData.email}
+            onChange={handleChange}
             required
           />
         </div>
@@ -59,8 +80,8 @@ const Register = () => {
             id="password"
             name="password"
             placeholder="Password"
-            value={password}
-            onChange={handlePasswordChange}
+            value={formData.password}
+            onChange={handleChange}
             required
           />
           <input

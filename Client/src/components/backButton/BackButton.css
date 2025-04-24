@@ -1,0 +1,19 @@
+.back-btn {
+  width: 100%;
+  background-color: rgb(150, 150, 150) !important;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  margin: 1rem 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.back-btn:hover {
+  background-color: rgb(64, 66, 146) !important;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}

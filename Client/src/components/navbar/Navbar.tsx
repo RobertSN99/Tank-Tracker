@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Navbar.css";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface NavbarProps {
   isDark: boolean;
@@ -7,18 +9,23 @@ interface NavbarProps {
 }
 
 function Navbar({ isDark, setIsDark }: NavbarProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const userIsLoggedIn: boolean = true;
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
-    setIsDark(isChecked);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsDark(e.target.checked);
   };
 
   const handleHamburgerClick = () => {
     setIsMenuOpen((prev) => !prev);
   };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
+  const isAdmin = user?.roles?.includes("Administrator");
 
   useEffect(() => {
     document.body.setAttribute("data-theme", isDark ? "dark" : "light");
@@ -35,15 +42,29 @@ function Navbar({ isDark, setIsDark }: NavbarProps) {
             Home
           </a>
         </li>
-        {userIsLoggedIn ? (
+
+        {user ? (
           <>
-            <li className="navbar-item">
-              <a href="/admin" className="navbar-link">
-                Admin
+            {isAdmin && (
+              <li className="navbar-item">
+                <a href="/admin" className="navbar-link">
+                  Admin
+                </a>
+              </li>
+            )}
+            <li className="navbar-item user-info">
+              <a
+                className="navbar-user-name"
+                onClick={() => navigate(`/user/${user.username}`)}
+              >
+                {user.username}
               </a>
             </li>
             <li className="navbar-item">
-              <a href="/logout" className="navbar-link">
+              <a
+                className="navbar-link navbar-logout-btn"
+                onClick={handleLogout}
+              >
                 Logout
               </a>
             </li>

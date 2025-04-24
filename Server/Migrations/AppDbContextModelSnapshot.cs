@@ -211,11 +211,17 @@ namespace Server.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NationId")
                         .HasColumnType("int");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");

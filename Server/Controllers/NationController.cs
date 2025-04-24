@@ -21,7 +21,7 @@ namespace Server.Controllers
         public async Task<IActionResult> GetAllNations()
         {
             var result = await _nationService.GetAllNationsAsync();
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpPost]
@@ -29,14 +29,21 @@ namespace Server.Controllers
         public async Task<IActionResult> CreateNation([FromBody] NationCreateDTO nationDto)
         {
             var result = await _nationService.CreateNationAsync(nationDto);
-            return result.Success ? Ok(result.Data) : BadRequest(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpGet("id/{nationId}")]
         public async Task<IActionResult> GetNationById(int nationId)
         {
             var result = await _nationService.GetNationByIdAsync(nationId);
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
+        }
+
+        [HttpGet("name/{nationName}")]
+        public async Task<IActionResult> GetNationByName(string nationName)
+        {
+            var result = await _nationService.GetNationByNameAsync(nationName);
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpPatch("id/{nationId}")]
@@ -44,7 +51,7 @@ namespace Server.Controllers
         public async Task<IActionResult> UpdateNation(int nationId, [FromBody] NationUpdateDTO nationDto)
         {
             var result = await _nationService.UpdateNationAsync(nationId, nationDto);
-            return result.Success ? Ok(result.Data) : BadRequest(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
 
         [HttpDelete("id/{nationId}")]
@@ -52,7 +59,7 @@ namespace Server.Controllers
         public async Task<IActionResult> DeleteNation(int nationId)
         {
             var result = await _nationService.DeleteNationAsync(nationId);
-            return result.Success ? Ok(result.Data) : NotFound(new { result.Message });
+            return result.Success ? StatusCode(result.StatusCode ?? 200, result) : StatusCode(result.StatusCode ?? 400, result);
         }
     }
 }

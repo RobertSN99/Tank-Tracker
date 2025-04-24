@@ -9,12 +9,19 @@ import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
-import Register from "./pages/logout/Register";
+import Register from "./pages/register/Register";
 import Footer from "./components/footer/Footer";
 import TankId from "./pages/tankId/TankId";
 import Unauthorized from "./pages/unauthorized/Unauthorized";
 import NotFound from "./pages/notfound/NotFound";
 import Admin from "./pages/admin/Admin";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import CreateTank from "./pages/create/tank/CreateTank";
+import CreateNation from "./pages/create/nation/CreateNation";
+import CreateClass from "./pages/create/class/CreateClass";
+import CreateStatus from "./pages/create/status/CreateStatus";
+import ScrollToTop from "./components/scrollToTop/ScrollToTop";
+import UserProfile from "./pages/userProfile/UserProfile";
 
 function App() {
   const [isDark, setIsDark] = useState<boolean>(
@@ -31,13 +38,76 @@ function App() {
     <>
       <Router>
         <Navbar isDark={isDark} setIsDark={setIsDark} />
+        {/* ScrollToTop component to reset scroll position on route change */}
+        <ScrollToTop />
         <div className="App" data-theme={isDark ? "dark" : "light"}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute requireRole="Administrator">
+                  <Admin />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/create/tank"
+              element={
+                <ProtectedRoute requireRole="Administrator">
+                  <CreateTank />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/create/nation"
+              element={
+                <ProtectedRoute requireRole="Administrator">
+                  <CreateNation />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/create/class"
+              element={
+                <ProtectedRoute requireRole="Administrator">
+                  <CreateClass />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/create/status"
+              element={
+                <ProtectedRoute requireRole="Administrator">
+                  <CreateStatus />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <ProtectedRoute guestOnly>
+                  <Login />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <ProtectedRoute guestOnly>
+                  <Register />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/user/:userName"
+              element={
+                <ProtectedRoute allowedToUserOrAdmin>
+                  <UserProfile />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/tank/:id" element={<TankId />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="/notfound" element={<NotFound />} />

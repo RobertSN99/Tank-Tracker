@@ -8,19 +8,22 @@ namespace Server.Helpers
         public T? Data { get; set; }
         public string? Message { get; set; }
         public IEnumerable<string>? Errors { get; set; }
+        public int? StatusCode { get; set; }
 
-        public static ServiceResult<T> SuccessResult(T? data, string? message = null) => new()
+        public static ServiceResult<T> SuccessResult(T? data, string? message = null, int? statusCode = 200) => new()
         {
             Success = true,
             Data = data,
-            Message = message
+            Message = message,
+            StatusCode = statusCode
         };
 
-        public static ServiceResult<T> FailureResult(string message, IEnumerable<string>? errors = null) => new()
+        public static ServiceResult<T> FailureResult(string message, IEnumerable<string>? errors = null, int? statusCode = 400) => new()
         {
             Success = false,
             Message = message,
-            Errors = errors
+            Errors = errors ?? [message],
+            StatusCode = statusCode
         };
     }
 }

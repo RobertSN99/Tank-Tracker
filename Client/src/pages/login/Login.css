@@ -133,6 +133,14 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Error Message Styling */
+.login-error {
+  color: #ff5555;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
 /* Forgot Password Group */
 .forgot-password-group {
   display: flex;

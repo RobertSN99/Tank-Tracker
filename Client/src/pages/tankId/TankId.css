@@ -1,176 +1,135 @@
-/* Container Styles */
+/* Container */
 .tank-page-container {
+  background-color: rgba(46, 46, 46, 0.5);
+  color: var(--primary-text-color);
+  padding: 2rem 4rem;
+  border-radius: 1rem;
+  max-width: 30rem;
+  margin: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 480px;
-  margin: auto;
-  padding: 2rem;
-  width: 100%;
-  border: 1px solid rgba(204, 204, 204, 0.5);
-  border-radius: 1rem;
-  background-color: var(--background-color);
-  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-  position: relative;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease;
 }
 
 [data-theme="light"] .tank-page-container {
   background-color: var(--alternate-background-color);
 }
 
-/* Tank Details */
+/* Form Fields */
+form input[type="text"],
+form input[type="number"] {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
+}
+
+form input:focus {
+  outline: none;
+  border-color: #ffbb00;
+  box-shadow: 0 0 8px rgba(255, 187, 0, 0.5);
+}
+
+.tank-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Select Group */
+.options-selection-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 0rem;
+  width: 100%;
+}
+
+.tank-page-container > h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Button */
+.creation-btn {
+  background: rgb(255, 187, 0);
+  color: black;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-family: "Lexend Exa", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.creation-btn:hover {
+  background: #ffcc40;
+  transform: scale(1.05);
+}
+
+/* Tank Display */
 .tank-details {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
   width: 100%;
+  gap: 1rem;
   margin-top: 1.5rem;
 }
 
 .detail-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.8rem;
-  border-bottom: 1px solid rgba(204, 204, 204, 0.5);
-}
-
-/* Editable Inputs & Selects */
-.editable-input,
-.editable-select {
-  min-width: 120px;
-  padding: 0.6rem;
-  border: 1px solid rgba(204, 204, 204, 0.7);
-  border-radius: 0.5rem;
+  border-bottom: 1px solid rgba(129, 129, 129, 0.5);
+  padding: 0.5rem 0;
   font-size: 1rem;
-  font-family: "Lexend Exa";
-  background-color: white;
-  transition: all 0.2s ease-in-out;
 }
 
-.editable-input:focus,
-.editable-select:focus {
-  outline: none;
-  border-color: rgba(102, 102, 255, 0.8);
-  box-shadow: 0 0 8px rgba(102, 102, 255, 0.3);
-}
-
-.editable-select {
-  cursor: pointer;
-}
-
-/* Actions Container */
-.actions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-/* Buttons */
-.actions button {
-  padding: 0.7rem 1.2rem;
-  border-radius: 0.5rem;
-  font-family: "Lexend Exa";
+.detail-item span {
   font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  border: none;
+  color: var(--primary-text-color);
 }
 
-/* Delete Button */
-.actions > .delete-btn {
-  background: red;
-  color: white;
-}
-
-.actions > .delete-btn:hover {
-  background: rgb(184, 0, 0);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transform: scale(1.05);
-}
-
-/* Back Button */
-.tank-page-container .back-btn {
-  width: 100%;
-  background-color: gray;
-  color: white;
+.tankid-admin-buttons {
+  margin-top: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.8rem;
-  font-size: 1rem;
-  position: absolute;
-  bottom: -3.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 0.5rem;
-  transition: all 0.3s ease-in-out;
+  gap: 1rem;
 }
 
-.back-btn:hover {
-  background: rgb(105, 105, 105);
-  transform: translateX(-50%) translateY(-4px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+.tankid-admin-buttons > .tankid-delete-btn {
+  background-color: red;
 }
 
-/* Icons */
-.tank-details span {
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-}
-
-.tank-details span:hover {
-  transform: scale(1.2);
-}
-
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 600px) {
   .tank-page-container {
     padding: 1.5rem;
   }
 
-  .editable-input,
-  .editable-select {
-    width: 100%;
-    min-width: unset;
+  .tankid-admin-buttons {
+    flex-direction: column;
   }
 }
 
 @media (max-width: 400px) {
   .tank-page-container {
-    max-width: 100%;
     padding: 1rem;
   }
 
-  .tank-page-container *,
-  .tank-page-container .back-btn {
-    font-size: 0.9rem;
-  }
-
-  .actions {
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  .actions button {
+  .creation-btn {
     width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 320px) {
-  .tank-page-container {
-    width: 14rem;
-  }
-
-  .tank-page-container *,
-  .tank-page-container .back-btn {
-    font-size: 0.8rem;
   }
 }

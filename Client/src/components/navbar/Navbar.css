@@ -100,6 +100,21 @@
   transform: translateX(14px);
 }
 
+.navbar-user-name {
+  font-weight: 600;
+  color: var(--foreground-color);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.navbar-logout-btn {
+  cursor: pointer;
+}
+
+[data-theme="dark"] .navbar-user-name {
+  color: var(--foreground-color);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .navbar-menu {

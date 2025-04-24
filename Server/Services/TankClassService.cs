@@ -27,7 +27,7 @@ namespace Server.Services
             var existsCheck = await _context.TankClasses
                 .AnyAsync(tc => tc.Name == tankClassDto.Name);
             if (existsCheck)
-                return ServiceResult<object>.FailureResult($"Tank class with name '{tankClassDto.Name}' already exists.");
+                return ServiceResult<object>.FailureResult($"Tank class with name '{tankClassDto.Name}' already exists.", null, 409);
 
             // Create the new tank class
             var newTankClass = new TankClass
@@ -42,7 +42,7 @@ namespace Server.Services
             if (result == 0)
                 return ServiceResult<object>.FailureResult("Failed to create the tank class in the database.");
 
-            return ServiceResult<object>.SuccessResult(newTankClass, "Tank class created successfully.");
+            return ServiceResult<object>.SuccessResult(DTOMapper.ToTankClassDTO(newTankClass), "Tank class created successfully.", 201);
         }
         public async Task<ServiceResult<object>> DeleteClassAsync(int classId)
         {
@@ -58,7 +58,7 @@ namespace Server.Services
             if (result == 0)
                 return ServiceResult<object>.FailureResult("Failed to delete the tank class from the database.");
 
-            return ServiceResult<object>.SuccessResult(null, "Tank class deleted successfully.");
+            return ServiceResult<object>.SuccessResult(null, "Tank class deleted successfully.", 204);
 
         }
         public async Task<ServiceResult<object>> GetAllClassesAsync()
@@ -69,8 +69,10 @@ namespace Server.Services
                 .ToListAsync();
 
             if (tankClasses == null || tankClasses.Count == 0)
-                return ServiceResult<object>.FailureResult("No tank classes found in the database.");
-            return ServiceResult<object>.SuccessResult(tankClasses, "Tank classes retrieved successfully.");
+                return ServiceResult<object>.FailureResult("No tank classes found in the database.", null, 404);
+
+            var tankClassesDTOs = tankClasses.Select(DTOMapper.ToTankClassDTO).ToList();
+            return ServiceResult<object>.SuccessResult(tankClassesDTOs, "Tank classes retrieved successfully.");
         }
         public async Task<ServiceResult<object>> GetClassByIdAsync(int classId)
         {
@@ -80,7 +82,8 @@ namespace Server.Services
 
             // Retrieve the tank class by ID
             var tankClass = validationResult.Data as TankClass;
-            return ServiceResult<object>.SuccessResult(tankClass, "Tank class retrieved successfully.");
+            var dto = DTOMapper.ToTankClassDTO(tankClass!);
+            return ServiceResult<object>.SuccessResult(dto, "Tank class retrieved successfully.");
         }
         public async Task<ServiceResult<object>> UpdateClassAsync(int classId, TankClassUpdateDTO tankClassDto)
         {
@@ -97,7 +100,7 @@ namespace Server.Services
             var existsCheck = await _context.TankClasses
                 .AnyAsync(tc => tc.Name == tankClassDto.Name && tc.Id != classId);
             if (existsCheck)
-                return ServiceResult<object>.FailureResult($"Tank class with name '{tankClassDto.Name}' already exists.");
+                return ServiceResult<object>.FailureResult($"Tank class with name '{tankClassDto.Name}' already exists.", null, 409);
 
             // Update the tank class
             var tankClass = validationResult.Data as TankClass;
@@ -108,7 +111,7 @@ namespace Server.Services
             if (result == 0)
                 return ServiceResult<object>.FailureResult("Failed to update the tank class in the database.");
 
-            return ServiceResult<object>.SuccessResult(tankClass, "Tank class updated successfully.");
+            return ServiceResult<object>.SuccessResult(DTOMapper.ToTankClassDTO(tankClass), "Tank class updated successfully.");
         }
     }
 }

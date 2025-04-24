@@ -148,10 +148,11 @@ D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\staticwebassets\msbuild.build.S
 D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.Server.props
 D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.Server.props
 D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\staticwebassets.pack.json
-D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\Server.csproj.Up2Date
 D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\Server.dll
 D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\refint\Server.dll
 D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\Server.pdb
 D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\Server.genruntimeconfig.cache
 D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\ref\Server.dll
+D:\Projects\Tank Tracker\Server\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+D:\Projects\Tank Tracker\Server\bin\Debug\net9.0\Scalar.AspNetCore.dll
