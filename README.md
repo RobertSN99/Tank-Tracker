@@ -2,6 +2,8 @@
 
 **Tank Tracker** is a web application designed to manage a collection of tanks from World of Tanks game. Built with **ASP.NET Core**, **React (Vite)**, and **SQL Server**, it allows users to explore, add, edit, and rate tanks. The project is currently under development.
 
+---
+
 ## Features
 
 - **View Tanks**  
@@ -29,12 +31,16 @@
 
   - Users can select between dark theme and light theme
 
+---
+
 ## Tech Stack
 
 - **Backend:** ASP.NET Core Web API (.NET 8), Identity Framework
 - **Frontend:** React (with Vite)
 - **Database:** SQL Server
 - **Authentication:** Cookie-based (HttpOnly)
+
+---
 
 ## Roadmap
 
@@ -49,6 +55,8 @@
 - [ ] Enhance UI/UX for better user experience
 - [ ] Write comprehensive tests for both frontend and backend
 
+---
+
 ## Setup Instructions
 
 Follow the steps below to set up the project locally:
@@ -59,6 +67,8 @@ Follow the steps below to set up the project locally:
 git clone https://github.com/RobertSN99/Tank-Tracker.git
 cd Tank-Tracker
 ```
+
+---
 
 ### 2. Set up the Backend (ASP.NET Core)
 
@@ -93,6 +103,8 @@ Run the backend server:
 ```bash
 dotnet run
 ```
+
+---
 
 ### 3. Set up the Frontend (React + Vite)
 
