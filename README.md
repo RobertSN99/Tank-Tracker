@@ -51,4 +51,63 @@
 
 ## Setup Instructions
 
-_To be added once the project is finished._
+Follow the steps below to set up the project locally:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/RobertSN99/Tank-Tracker.git
+cd Tank-Tracker
+```
+
+### 2. Set up the Backend (ASP.NET Core)
+
+Navigate to the server project directory:
+
+```bash
+cd Server
+```
+
+Restore dependencies:
+
+```bash
+dotnet restore
+```
+
+Ensure you have SQL Server installed and running. Create a new database (e.g., `TankTrackerDb`), then update the `appsettings.json` file:
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost;Database=TankTrackerDb;Trusted_Connection=True;TrustServerCertificate=True",
+}
+```
+
+Apply database migrations:
+
+```bash
+dotnet ef database update
+```
+
+Run the backend server:
+
+```bash
+dotnet run
+```
+
+### 3. Set up the Frontend (React + Vite)
+
+```bash
+cd ../Client
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Start the Vite development server:
+
+```bash
+npm run dev
+```
