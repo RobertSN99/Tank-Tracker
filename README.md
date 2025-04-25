@@ -6,7 +6,7 @@
 
 ## 🎥 Live Demo
 
-[![Tank Tracker Demo](https://img.youtube.com/vi/M1iB5p4iM6Q)](https://youtube.com/watch?v=M1iB5p4iM6Q)
+[![Tank Tracker Demo](https://img.youtube.com/vi/M1iB5p4iM6Q/0.jpg)](https://youtube.com/watch?v=M1iB5p4iM6Q)
 
 ## Features
 
