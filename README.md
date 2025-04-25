@@ -6,7 +6,7 @@
 
 ## 🎥 Live Demo
 
-> _To be done later..._
+> [![Tank Tracker Demo](https://img.youtube.com/vi/M1iB5p4iM6Q)](https://youtube.com/watch?v=M1iB5p4iM6Q)
 
 ## Features
 
@@ -27,6 +27,10 @@
 
   - Active sessions are tracked and visible to authorized roles.
 
+- **Effective debounced search and filtering feature**
+
+  - Users can select mulitple filters and / or add input to the search bar, and the list of tanks will update.
+
 - **Rating System**
 
   - **Admins** and **Moderators** will be able to rate tanks from 1 to 5 stars, with steps of 0.5.
@@ -39,7 +43,7 @@
 
 ## Tech Stack
 
-- **Backend:** ASP.NET Core Web API (.NET 8), Identity Framework
+- **Backend:** ASP.NET Core Web API (.NET 9), Identity Framework
 - **Frontend:** React (with Vite)
 - **Database:** SQL Server
 - **Authentication:** Cookie-based (HttpOnly)
@@ -52,6 +56,7 @@
 - [x] Implement session tracking
 - [x] Implement tank CRUD endpoints in the backend
 - [x] Integrate frontend with tank endpoints
+- [x] Implement a flexible filtering feature
 - [x] Develop rating functionality for tanks
 - [ ] Get tanks data directly from WarGaming API
 - [ ] Expand auth system by using OAuth 2.0
