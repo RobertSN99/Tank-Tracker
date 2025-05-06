@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "D:\\Projects\\Tank Tracker\\Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C78BEE9-EE17-46F6-944D-C5AB91956156}|Server.csproj|d:\\projects\\tank tracker\\server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{5C78BEE9-EE17-46F6-944D-C5AB91956156}|Server.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{499520FB-623D-47F7-A1E1-B1306046F649}|Tests\\Tests.csproj|d:\\projects\\tank tracker\\server\\tests\\nationservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{499520FB-623D-47F7-A1E1-B1306046F649}|Tests\\Tests.csproj|solutionrelative:tests\\nationservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C78BEE9-EE17-46F6-944D-C5AB91956156}|Server.csproj|d:\\projects\\tank tracker\\server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C78BEE9-EE17-46F6-944D-C5AB91956156}|Server.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{499520FB-623D-47F7-A1E1-B1306046F649}|Tests\\Tests.csproj|d:\\projects\\tank tracker\\server\\tests\\tankservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{499520FB-623D-47F7-A1E1-B1306046F649}|Tests\\Tests.csproj|solutionrelative:tests\\tankservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C78BEE9-EE17-46F6-944D-C5AB91956156}|Server.csproj|d:\\projects\\tank tracker\\server\\controllers\\tankcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C78BEE9-EE17-46F6-944D-C5AB91956156}|Server.csproj|solutionrelative:controllers\\tankcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{499520FB-623D-47F7-A1E1-B1306046F649}|Tests\\Tests.csproj|d:\\projects\\tank tracker\\server\\tests\\authservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{499520FB-623D-47F7-A1E1-B1306046F649}|Tests\\Tests.csproj|solutionrelative:tests\\authservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,8 +22,47 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TankServiceTests.cs",
+              "DocumentMoniker": "D:\\Projects\\Tank Tracker\\Server\\Tests\\TankServiceTests.cs",
+              "RelativeDocumentMoniker": "Tests\\TankServiceTests.cs",
+              "ToolTip": "D:\\Projects\\Tank Tracker\\Server\\Tests\\TankServiceTests.cs",
+              "RelativeToolTip": "Tests\\TankServiceTests.cs",
+              "ViewState": "AgIAAOkAAAAAAAAAAAAuwPIAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T13:00:57.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NationServiceTests.cs",
+              "DocumentMoniker": "D:\\Projects\\Tank Tracker\\Server\\Tests\\NationServiceTests.cs",
+              "RelativeDocumentMoniker": "Tests\\NationServiceTests.cs",
+              "ToolTip": "D:\\Projects\\Tank Tracker\\Server\\Tests\\NationServiceTests.cs",
+              "RelativeToolTip": "Tests\\NationServiceTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T12:56:40.16Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthServiceTests.cs",
+              "DocumentMoniker": "D:\\Projects\\Tank Tracker\\Server\\Tests\\AuthServiceTests.cs",
+              "RelativeDocumentMoniker": "Tests\\AuthServiceTests.cs",
+              "ToolTip": "D:\\Projects\\Tank Tracker\\Server\\Tests\\AuthServiceTests.cs",
+              "RelativeToolTip": "Tests\\AuthServiceTests.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAcwG0AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T12:54:51.109Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
@@ -31,43 +70,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Projects\\Tank Tracker\\Server\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "D:\\Projects\\Tank Tracker\\Server\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-24T14:52:50.174Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TankController.cs",
-              "DocumentMoniker": "D:\\Projects\\Tank Tracker\\Server\\Controllers\\TankController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TankController.cs",
-              "ToolTip": "D:\\Projects\\Tank Tracker\\Server\\Controllers\\TankController.cs",
-              "RelativeToolTip": "Controllers\\TankController.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAA9wDsAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T14:48:39.519Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Projects\\Tank Tracker\\Server\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\Projects\\Tank Tracker\\Server\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAwwFsAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T14:48:16.78Z"
             }
           ]
         }
