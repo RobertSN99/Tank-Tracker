@@ -62,7 +62,8 @@
 - [ ] Expand auth system by using OAuth 2.0
 - [ ] Implement frontend user management
 - [ ] Enhance UI/UX for better user experience
-- [ ] Write comprehensive tests for both frontend and backend
+- [x] Write tests for backend
+- [ ] Write tests for frontend
 
 ---
 
